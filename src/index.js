@@ -1,22 +1,19 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-// const apiRoutes = require("./routes/index");
-// const db = require("./models/index");
-
+const apiRoutes = require("./routes/index");
 const { PORT } = require("./config/serverConfig");
+const cors = require("cors");
+const { default: axios } = require("axios");
 
-const setupAndStartServer = async () => {
+const setupAndStartServer = () => {
   const app = express();
+  app.use(cors());
 
   app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extends: "true" }));
-  // app.use("/api", apiRoutes);
-  app.listen(PORT, async () => {
-    // console.log(`server is running at port ${PORT}`);
-    // if (SYNC_DB) {
-    //   db.sequelize.sync({ alter: true });
-    // }
-    console.log("app is running");
+  app.use(bodyParser.urlencoded({ extended: "true" }));
+  app.use("/api", apiRoutes);
+  app.listen(PORT, () => {
+    console.log(`server is running at port ${PORT}`);
   });
 };
 
