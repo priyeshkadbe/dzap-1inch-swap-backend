@@ -13,12 +13,6 @@ class TokensService {
       return tokens;
     } catch (error) {
       console.log(error);
-      // throw new AppErrors(
-      //   "Server Error",
-      //   "something went wrong in service",
-      //   "Logical issue found",
-      //   500
-      // );
     }
   }
 
@@ -28,7 +22,7 @@ class TokensService {
       return response.data;
     } catch (error) {
       console.log(error);
-      throw { error };
+      //throw { error };
     }
   }
 }
