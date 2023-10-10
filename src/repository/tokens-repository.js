@@ -1,44 +1,45 @@
 const { default: axios } = require("axios");
-const { API_URL, BEARER_TOKEN } = require("../config/serverConfig");
-class TokensRepository {
+const {
+  API_URL,
+  BEARER_TOKEN,
+  SPOT_PRICE_API_URL,
+} = require("../config/serverConfig");
 
-  
+class TokensRepository {
   async getTokensList() {
     try {
-      const response = await axios.get(API_URL + "tokens", {
+      const response = await axios.get(API_URL + "tokens/", {
         headers: {
           Authorization: `Bearer ${BEARER_TOKEN}`,
         },
       });
       return response.data;
     } catch (error) {
-      console.log(error);
-      throw { error };
+      //console.error("Error fetching tokens:", error);
+      return { error: "Unable to perform the operation at the moment." };
     }
   }
-
 
   async getATokenPrice(tokenAddress) {
     try {
       const response = await axios.get(
-        `${API_URL}${tokenAddress}?currency=USD`,
+        `${SPOT_PRICE_API_URL}+${tokenAddress}?currency=USD`,
         {
           headers: {
             Authorization: `Bearer ${BEARER_TOKEN}`,
           },
         }
       );
-      return response;
+      return response.data;
     } catch (error) {
-      console.log(error);
-      throw { error };
+      console.error("Error fetching token price:", error);
+      return { error: "Unable to fetch token price at the moment." };
     }
   }
 
   async getSwapQuote(tokenIn, tokenOut, tokenInAmount) {
     try {
-      console.log("fdf", tokenIn, tokenOut, tokenInAmount);
-      const response = await axios.get(`{API_URL}quote`, {
+      const response = await axios.get(`${API_URL}quote`, {
         params: {
           src: tokenIn,
           dst: tokenOut,
@@ -54,8 +55,8 @@ class TokensRepository {
       console.log("Gas:", gas);
       return response.data;
     } catch (error) {
-      console.log(error);
-      throw { error };
+      //console.error("Error fetching swap quote:", error);
+      return { error: "Unable to fetch swap quote at the moment." };
     }
   }
 }

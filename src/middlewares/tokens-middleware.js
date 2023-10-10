@@ -1,8 +1,9 @@
+const { StatusCodes } = require("http-status-codes");
 
 const validateGetTokenPrice = (req, res, next) => {
-  console.log('dfd')
+  console.log("dfd");
   if (!req.params.address) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
       data: {},
       message: "something went wrong",
@@ -12,12 +13,11 @@ const validateGetTokenPrice = (req, res, next) => {
   next();
 };
 
-
 const validateGetQuote = (req, res, next) => {
   console.log("hittingGas");
   const { tokenIn, tokenOut, tokenInAmount } = req.query;
   if (!tokenIn || !tokenOut || !tokenInAmount) {
-    return res.status(400).json({
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
       data: {},
       message: "something went wrong",
@@ -25,6 +25,6 @@ const validateGetQuote = (req, res, next) => {
     });
   }
   next();
-}
+};
 
 module.exports = { validateGetTokenPrice, validateGetQuote };
