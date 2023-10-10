@@ -1,28 +1,32 @@
+const { default: axios } = require("axios");
 const { TokensService } = require("../services/index");
 
 const tokensService = new TokensService();
 
 const tokensList = async (req, res) => {
+  console.log("hitting");
   try {
     const response = await tokensService.tokensList();
-    return res.status(200).json({
-      message: "Successfully fetched all tokens",
+    return res.status(201).json({
+      message: "successfully fetch all the tokens",
       data: response,
       success: true,
-      error: null,
+      err: {},
     });
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return res.status(500).json({
-      message: "Unable to fetch tokens",
-      data: null,
+      message: "unable to fetch tokens",
+      data: {},
       success: false,
-      error: "Internal server error",
+      err: error,
     });
   }
 };
 
+
 const getTokenPrice = async (req, res) => {
+  
   try {
     const address = req.params.address;
     const tokenPrice = await tokensService.getTokenPrice(address);
@@ -33,40 +37,42 @@ const getTokenPrice = async (req, res) => {
       err: {},
     });
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return res.status(500).json({
-      message: "Unable to fetch token price",
-      data: null,
+      message: "unable to a tokens",
+      data: {},
       success: false,
-      error: "Internal server error",
+      err: error,
     });
   }
-};
+}
+
 
 const getSwapQuote = async (req, res) => {
   try {
     const { tokenIn, tokenOut, tokenInAmount } = req.query;
-    console.log("data", req.body);
+    console.log('data',req.body)
     const tokenPrice = await tokensService.getSwapQuote(
       tokenIn,
       tokenOut,
       tokenInAmount
     );
-    return res.status(200).json({
+    return res.status(201).json({
       message: "successfully  a fetched Quote ",
       data: tokenPrice,
       success: true,
       err: {},
     });
   } catch (error) {
-    return res.status(500).json({
-      message: "Unable to fetch swap quote",
-      data: null,
-      success: false,
-      error: "Internal server error",
-    });
+        return res.status(500).json({
+          message: "unable to fetch quote",
+          data: {},
+          success: false,
+          err: error,
+        });
   }
-};
+}
+
 
 module.exports = {
   tokensList,

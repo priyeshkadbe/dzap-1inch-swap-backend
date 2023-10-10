@@ -1,5 +1,6 @@
 const { TokensRepository } = require("../repository/index");
 
+const AppErrors = require("../utils/error-handler");
 
 class TokensService {
   constructor() {
@@ -11,26 +12,23 @@ class TokensService {
       const tokens = await this.tokensRepository.getTokensList();
       return tokens;
     } catch (error) {
-      console.error("Error in fetching tokens list:", error.message);
-      throw new Error("Unable to fetch tokens list");
+      console.log(error);
     }
   }
 
-  async getTokenPrice(tokenAddress) {
+  async getTokenPrice(data) {
     try {
-      const response = await this.tokensRepository.getATokenPrice(tokenAddress);
-      return response;
+      const response = await this.tokensRepository.getATokenPrice(data);
+      return response.data;
     } catch (error) {
-      console.error(
-        `Error in fetching token price for address ${tokenAddress}:`,
-        error.message
-      );
-      throw new Error("Unable to fetch token price");
+      console.log(error);
+      //throw { error };
     }
   }
 
   async getSwapQuote(tokenIn, tokenOut, tokenInAmount) {
     try {
+      console.log("hittinggetSwap");
       const response = await this.tokensRepository.getSwapQuote(
         tokenIn,
         tokenOut,
@@ -38,8 +36,8 @@ class TokensService {
       );
       return response;
     } catch (error) {
-      console.error("Error in fetching swap quote:", error.message);
-      throw new Error("Unable to fetch swap quote");
+      console.log(error);
+      // throw { error };
     }
   }
 }
