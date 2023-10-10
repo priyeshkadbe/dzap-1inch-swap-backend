@@ -48,8 +48,34 @@ const getTokenPrice = async (req, res) => {
 }
 
 
+const getSwapQuote = async (req, res) => {
+  try {
+    const { tokenIn, tokenOut, tokenInAmount } = req.query;
+    console.log('data',req.body)
+    const tokenPrice = await tokensService.getSwapQuote(
+      tokenIn,
+      tokenOut,
+      tokenInAmount
+    );
+    return res.status(201).json({
+      message: "successfully  a fetched Quote ",
+      data: tokenPrice,
+      success: true,
+      err: {},
+    });
+  } catch (error) {
+        return res.status(500).json({
+          message: "unable to fetch quote",
+          data: {},
+          success: false,
+          err: error,
+        });
+  }
+}
+
 
 module.exports = {
   tokensList,
   getTokenPrice,
+  getSwapQuote,
 };

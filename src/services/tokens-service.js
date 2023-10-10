@@ -25,6 +25,21 @@ class TokensService {
       //throw { error };
     }
   }
+
+  async getSwapQuote(tokenIn, tokenOut, tokenInAmount) {
+    try {
+      console.log("hittinggetSwap");
+      const response = await this.tokensRepository.getSwapQuote(
+        tokenIn,
+        tokenOut,
+        tokenInAmount
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+      // throw { error };
+    }
+  }
 }
 
 module.exports = TokensService;

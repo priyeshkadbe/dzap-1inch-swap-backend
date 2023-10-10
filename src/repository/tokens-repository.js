@@ -1,37 +1,58 @@
 const { default: axios } = require("axios");
-
+const { API_URL, BEARER_TOKEN } = require("../config/serverConfig");
 class TokensRepository {
+
+  
   async getTokensList() {
     try {
-      const response = await axios.get(
-        "https://api.1inch.dev/swap/v5.2/1/tokens",
-        {
-          headers: {
-            Authorization: "Bearer QDioxYhpgFdChISamIheQ3zsPEPAc1Xa",
-            Cookie:
-              "__cf_bm=RWmF4P.eq_k7JHh59nCPtPnATIy_XrR5Hcv0XElCf1M-1696761397-0-AQZ+U9TqJ9a1Prox+nX8G1L7qR3vXqw1ZYir03J24ySIavr448+Jg9QuuJW/AbEgH8OJtCXDbnNxkEofvd6f4YA=",
-          },
-        }
-      );
-      //console.log("resonse is ",response)
+      const response = await axios.get(API_URL + "tokens", {
+        headers: {
+          Authorization: `Bearer ${BEARER_TOKEN}`,
+        },
+      });
       return response.data;
     } catch (error) {
       console.log(error);
       throw { error };
     }
   }
-  //http://localhost:5000/api/v1/tokens?address=0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0
+
+
   async getATokenPrice(tokenAddress) {
     try {
       const response = await axios.get(
-        `https://api.1inch.dev/price/v1.1/1/${tokenAddress}?currency=USD`,
+        `${API_URL}${tokenAddress}?currency=USD`,
         {
           headers: {
-            Authorization: "Bearer QDioxYhpgFdChISamIheQ3zsPEPAc1Xa",
+            Authorization: `Bearer ${BEARER_TOKEN}`,
           },
         }
       );
       return response;
+    } catch (error) {
+      console.log(error);
+      throw { error };
+    }
+  }
+
+  async getSwapQuote(tokenIn, tokenOut, tokenInAmount) {
+    try {
+      console.log("fdf", tokenIn, tokenOut, tokenInAmount);
+      const response = await axios.get(`{API_URL}quote`, {
+        params: {
+          src: tokenIn,
+          dst: tokenOut,
+          amount: tokenInAmount,
+          includeGas: true,
+        },
+        headers: {
+          Authorization: `Bearer ${BEARER_TOKEN}`,
+        },
+      });
+      const { toAmount, gas } = response.data;
+      console.log("To Amount:", toAmount);
+      console.log("Gas:", gas);
+      return response.data;
     } catch (error) {
       console.log(error);
       throw { error };

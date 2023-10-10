@@ -1,6 +1,3 @@
-const tokensList = (req, res, next) => {
-  next();
-};
 
 const validateGetTokenPrice = (req, res, next) => {
   console.log('dfd')
@@ -15,4 +12,19 @@ const validateGetTokenPrice = (req, res, next) => {
   next();
 };
 
-module.exports = { validateGetTokenPrice };
+
+const validateGetQuote = (req, res, next) => {
+  console.log("hittingGas");
+  const { tokenIn, tokenOut, tokenInAmount } = req.query;
+  if (!tokenIn || !tokenOut || !tokenInAmount) {
+    return res.status(400).json({
+      success: false,
+      data: {},
+      message: "something went wrong",
+      err: "required values are missing",
+    });
+  }
+  next();
+}
+
+module.exports = { validateGetTokenPrice, validateGetQuote };
