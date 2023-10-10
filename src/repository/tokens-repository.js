@@ -1,8 +1,6 @@
 const { default: axios } = require("axios");
 const { API_URL, BEARER_TOKEN } = require("../config/serverConfig");
 class TokensRepository {
-
-  
   async getTokensList() {
     try {
       const response = await axios.get(API_URL + "tokens", {
@@ -12,11 +10,10 @@ class TokensRepository {
       });
       return response.data;
     } catch (error) {
-      console.log(error);
-      throw { error };
+      console.error("Error fetching tokens list:", error.message);
+      throw new Error("Unable to fetch tokens list from the server");
     }
   }
-
 
   async getATokenPrice(tokenAddress) {
     try {
@@ -28,17 +25,19 @@ class TokensRepository {
           },
         }
       );
-      return response;
+      return response.data;
     } catch (error) {
-      console.log(error);
-      throw { error };
+      console.error(
+        `Error fetching token price for address ${tokenAddress}:`,
+        error.message
+      );
+      throw new Error("Unable to fetch token price from the server");
     }
   }
 
   async getSwapQuote(tokenIn, tokenOut, tokenInAmount) {
     try {
-      console.log("fdf", tokenIn, tokenOut, tokenInAmount);
-      const response = await axios.get(`{API_URL}quote`, {
+      const response = await axios.get(`${API_URL}quote`, {
         params: {
           src: tokenIn,
           dst: tokenOut,
@@ -54,8 +53,8 @@ class TokensRepository {
       console.log("Gas:", gas);
       return response.data;
     } catch (error) {
-      console.log(error);
-      throw { error };
+      console.error("Error fetching swap quote:", error.message);
+      throw new Error("Unable to fetch swap quote from the server");
     }
   }
 }

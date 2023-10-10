@@ -3,7 +3,6 @@ const bodyParser = require("body-parser");
 const apiRoutes = require("./routes/index");
 const { PORT } = require("./config/serverConfig");
 const cors = require("cors");
-const { default: axios } = require("axios");
 
 const setupAndStartServer = () => {
   const app = express();
