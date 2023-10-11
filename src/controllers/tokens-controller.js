@@ -25,10 +25,7 @@ const tokensList = async (req, res) => {
   }
 };
 
-
-
 const getTokenPrice = async (req, res) => {
-  
   try {
     const address = req.params.address;
     const tokenPrice = await tokensService.getTokenPrice(address);
@@ -47,8 +44,7 @@ const getTokenPrice = async (req, res) => {
       err: error,
     });
   }
-}
-
+};
 
 const getSwapQuote = async (req, res) => {
   try {
@@ -66,18 +62,46 @@ const getSwapQuote = async (req, res) => {
       err: {},
     });
   } catch (error) {
-        return res.status(StatusCodes.NOT_FOUND).json({
-          message: "unable to fetch Swap quote",
-          data: {},
-          success: false,
-          err: error,
-        });
+    return res.status(StatusCodes.NOT_FOUND).json({
+      message: "unable to fetch Swap quote",
+      data: {},
+      success: false,
+      err: error,
+    });
   }
-}
+};
 
+const swap = async (req, res) => {
+  try {
+    const { tokenIn, tokenOut, tokenInAmount, callerAddress, slippage } =
+      req.query;
+    //console.log('data',req.body)
+    const tokenPrice = await tokensService.swap(
+      tokenIn,
+      tokenOut,
+      tokenInAmount,
+      callerAddress,
+      slippage
+    );
+    return res.status(StatusCodes.OK).json({
+      message: "successfully  Swapped the tokens ",
+      data: tokenPrice,
+      success: true,
+      err: {},
+    });
+  } catch (error) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      message: "unable to fetch Swap tokens",
+      data: {},
+      success: false,
+      err: error,
+    });
+  }
+};
 
 module.exports = {
   tokensList,
   getTokenPrice,
   getSwapQuote,
+  swap,
 };

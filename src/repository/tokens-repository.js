@@ -16,7 +16,7 @@ class TokensRepository {
       return response.data;
     } catch (error) {
       //console.error("Error fetching tokens:", error);
-      return { error: "Unable to perform the operation at the moment." };
+      return { error: error.response.data.description };
     }
   }
 
@@ -33,7 +33,7 @@ class TokensRepository {
       return response.data;
     } catch (error) {
       console.error("Error fetching token price:", error);
-      return { error: "Unable to fetch token price at the moment." };
+      return { error: error.response.data.description };
     }
   }
 
@@ -56,7 +56,33 @@ class TokensRepository {
       return response.data;
     } catch (error) {
       //console.error("Error fetching swap quote:", error);
-      return { error: "Unable to fetch swap quote at the moment." };
+      return { error: error.response.data.description };
+    }
+  }
+
+  async swap(tokenIn, tokenOut, tokenInAmount,callerAddress,slippage) {
+    try {
+      console.log("calling swap")
+      const response = await axios.get(`${API_URL}swap`, {
+        params: {
+          src: tokenIn,
+          dst: tokenOut,
+          amount: tokenInAmount,
+          from: callerAddress,
+          slippage:slippage,
+          includeGas: true
+        },
+        headers: {
+          Authorization: `Bearer ${BEARER_TOKEN}`,
+        },
+      });
+      console.log("res",response)
+      return response.data;
+
+    } catch (error) {
+      console.error("Error fetching swap quote:", error.response.data.description);
+      return { error: error.response.data.description };
+
     }
   }
 }

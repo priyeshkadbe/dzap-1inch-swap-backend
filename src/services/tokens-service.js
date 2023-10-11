@@ -45,6 +45,29 @@ class TokensService {
       };
     }
   }
+
+  async swap(
+    tokenIn,
+    tokenOut,
+    tokenInAmount,
+    callerAddress,
+    slippage
+  ) {
+    try {
+      console.log("Fetching swap quote...");
+      const response = await this.tokensRepository.swap(
+        tokenIn,
+        tokenOut,
+        tokenInAmount,
+        callerAddress,
+        slippage
+      );
+      return response;
+    } catch (error) {
+      console.log("Error occurred while  swap quote:", error);
+      return error;
+    }
+  }
 }
 
 module.exports = TokensService;
