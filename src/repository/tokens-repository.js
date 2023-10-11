@@ -23,7 +23,7 @@ class TokensRepository {
   async getATokenPrice(tokenAddress) {
     try {
       const response = await axios.get(
-        `${SPOT_PRICE_API_URL}+${tokenAddress}?currency=USD`,
+        `${SPOT_PRICE_API_URL}${tokenAddress}?currency=USD`,
         {
           headers: {
             Authorization: `Bearer ${BEARER_TOKEN}`,

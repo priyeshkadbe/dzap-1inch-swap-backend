@@ -20,7 +20,7 @@ class TokensService {
   async getTokenPrice(data) {
     try {
       const response = await this.tokensRepository.getATokenPrice(data);
-      return response.data;
+      return response;
     } catch (error) {
       console.error("Error occurred while fetching token price:", error);
       return {
