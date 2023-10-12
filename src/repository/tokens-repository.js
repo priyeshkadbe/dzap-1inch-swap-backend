@@ -22,6 +22,10 @@ class TokensRepository {
 
   async getATokenPrice(tokenAddress) {
     try {
+      // console.log(
+      //   "sending url",
+      //   `${SPOT_PRICE_API_URL}${tokenAddress}?currency=USD`
+      // );
       const response = await axios.get(
         `${SPOT_PRICE_API_URL}${tokenAddress}?currency=USD`,
         {
@@ -30,10 +34,16 @@ class TokensRepository {
           },
         }
       );
+      //console.log('res',response.data)
       return response.data;
     } catch (error) {
-      console.error("Error fetching token price:", error);
-      return { error: error.response.data.description };
+      // console.log('erer',error.response.data.s)
+      // console.error("Error fetching token price:", error);
+      // return { error: error.response.data.description };
+      console.log("~~~~~~~~~~~~~~~~~~~~~~~~~")
+      console.log('ere',error.response)
+       console.log("~~~~~~~~~~~~~~~~~~~~~~~~~");
+      return error
     }
   }
 

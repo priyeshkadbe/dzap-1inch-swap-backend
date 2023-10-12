@@ -7,7 +7,6 @@ const validateSwap = (req, res, next) => {
     return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
       data: {},
-      message: "something went wrong",
       err: "required values are missing",
     });
   }

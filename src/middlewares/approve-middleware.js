@@ -1,7 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 
 
-
   const validateAllowance=(req, res, next)=> {
     const { tokenAddress, walletAddress } = req.query;
 
@@ -13,7 +12,6 @@ const { StatusCodes } = require("http-status-codes");
         err: "Required values are missing",
       });
     }
-    console.log("ext");
     next();
   }
 
@@ -24,11 +22,9 @@ const { StatusCodes } = require("http-status-codes");
       return res.status(StatusCodes.BAD_REQUEST).json({
         success: false,
         data: {},
-        message: "Something went wrong",
         err: "Required values are missing",
       });
     }
-    console.log("ext");
     next();
   }
 

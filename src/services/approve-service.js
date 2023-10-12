@@ -11,8 +11,20 @@ class ApproveService {
         tokenAddress,
         walletAddress
       );
-
-      return response;
+      //console.log("-----------");
+      if (response.error) {
+        // console.log("-----------");
+        console.log("error hai", response.error,response.statusCode,response.description)
+        // console.log("-----------");
+        // response.statusCode
+        // return {  };
+        const {error,statusCode,description} = response
+        return { error, statusCode, description,success:false};
+      }
+      const {status,data}=response
+    //console.log("data hai", response);
+    //  console.log("-----------");
+      return {status,data,success:true,error:""};
     } catch (error) {
       return error;
     }
@@ -20,12 +32,16 @@ class ApproveService {
 
   async transaction(tokenAddress, amount) {
     try {
-      const response = await this.approveRepository.allowance(
+      const response = await this.approveRepository.transaction(
         tokenAddress,
         amount
       );
-
-      return response;
+        if (response.error) {
+          const { error, statusCode, description } = response;
+          return { error, statusCode, description, success: false };
+        }
+        const { status, data } = response;
+        return { status, data, success: true, error: "" };
     } catch (error) {
       return error;
     }

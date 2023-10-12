@@ -8,6 +8,16 @@ const tokensList = async (req, res) => {
   console.log("hitting");
   try {
     const response = await tokensService.tokensList();
+
+     if (response.error) {
+       return res.status(StatusCodes.BAD_REQUEST).json({
+         message: response.description,
+         data: {},
+         success: false,
+         error: response.error,
+       });
+     }
+
     return res.status(StatusCodes.OK).json({
       message: "successfully fetch all the tokens",
       data: response,
@@ -28,7 +38,17 @@ const tokensList = async (req, res) => {
 const getTokenPrice = async (req, res) => {
   try {
     const address = req.params.address;
-    const tokenPrice = await tokensService.getTokenPrice(address);
+    console.log("address",address)
+    const response = await tokensService.getTokenPrice(address);
+    //console.log('response',response)
+     if (response.error) {
+       return res.status(StatusCodes.BAD_REQUEST).json({
+         message: response.description,
+         data: {},
+         success: false,
+         error: response.error,
+       });
+     }
     return res.status(StatusCodes.OK).json({
       message: "successfully  a token price ",
       data: tokenPrice,

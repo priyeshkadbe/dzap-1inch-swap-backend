@@ -25,14 +25,14 @@ router.get(
 router.get("/quote", validateGetQuote, QuoteController.quote);
 router.get("/swap", validateSwap, SwapController.swap);
 router.get(
-  "/allowance/approve",
+  "/approve/allowance",
   validateAllowance,
   ApproveController.allowance
 );
 router.get(
-  "/allowance/transaction",
+  "/approve/transaction",
   validateTransaction,
-  ApproveController.allowance
+  ApproveController.transaction
 );
 
 module.exports = router;

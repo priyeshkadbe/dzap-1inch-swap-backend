@@ -8,6 +8,7 @@ class TokensService {
   async tokensList() {
     try {
       const tokens = await this.tokensRepository.getTokensList();
+
       return tokens;
     } catch (error) {
       console.error("Error occurred while fetching tokens:", error);
@@ -20,19 +21,16 @@ class TokensService {
   async getTokenPrice(data) {
     try {
       const response = await this.tokensRepository.getATokenPrice(data);
+      console.log("-----------------");
+      console.log("res", response);
+      console.log("-----------------");
       return response;
     } catch (error) {
-      console.error("Error occurred while fetching token price:", error);
-      return {
-        error: "Unable to fetch token price. Please try again later.",
-      };
+      //console.error("Error occurred while fetching token price:", error);
+      // console.log("error", error.response.data.description )
+      return error
     }
   }
-
-  
-
-  
 }
 
 module.exports = TokensService;
-

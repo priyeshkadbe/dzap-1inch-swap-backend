@@ -1,3 +1,4 @@
+const { default: axios } = require("axios");
 const { API_URL, BEARER_TOKEN } = require("../config/serverConfig");
 
 class QuoteRepository {
@@ -15,13 +16,21 @@ class QuoteRepository {
           Authorization: `Bearer ${BEARER_TOKEN}`,
         },
       });
+      console.log("err", response);
       const { toAmount, gas } = response.data;
       console.log("To Amount:", toAmount);
       console.log("Gas:", gas);
-      return response.data;
+      
+      return response;
+
     } catch (error) {
       //console.error("Error fetching swap quote:", error);
-      return { error: error.response.data.description };
+      //return error
+      console.log(
+        "error.response.data.description ",
+        error.response.data
+      );
+      return { error: error.response.data };
     }
   }
 
