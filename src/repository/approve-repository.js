@@ -6,6 +6,8 @@ const {
 } = require("../config/serverConfig");
 
 class ApproveRepository {
+
+  
  
   async allowance(tokenAddress, walletAddress) {
     try {
@@ -46,4 +48,4 @@ class ApproveRepository {
   }
 }
 
-module.exports = ApproveRepository;
+module.exports =  ApproveRepository;
