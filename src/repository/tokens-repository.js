@@ -15,41 +15,26 @@ class TokensRepository {
       });
       return response.data;
     } catch (error) {
-      //console.error("Error fetching tokens:", error);
       return { error: error.response.data.description };
     }
   }
 
-  async getATokenPrice(tokenAddress) {
+  async tokenPrice(address) {
     try {
-      // console.log(
-      //   "sending url",
-      //   `${SPOT_PRICE_API_URL}${tokenAddress}?currency=USD`
-      // );
       const response = await axios.get(
-        `${SPOT_PRICE_API_URL}${tokenAddress}?currency=USD`,
+        `${SPOT_PRICE_API_URL}${address}?currency=USD`,
         {
           headers: {
             Authorization: `Bearer ${BEARER_TOKEN}`,
           },
         }
       );
-      //console.log('res',response.data)
-      return response.data;
+      console.log("res", response);
+      return response;
     } catch (error) {
-      // console.log('erer',error.response.data.s)
-      // console.error("Error fetching token price:", error);
-      // return { error: error.response.data.description };
-      console.log("~~~~~~~~~~~~~~~~~~~~~~~~~")
-      console.log('ere',error.response)
-       console.log("~~~~~~~~~~~~~~~~~~~~~~~~~");
-      return error
+      return error;
     }
   }
-
-  
-
-
 }
 
 module.exports = TokensRepository;

@@ -8,16 +8,6 @@ const tokensList = async (req, res) => {
   console.log("hitting");
   try {
     const response = await tokensService.tokensList();
-
-     if (response.error) {
-       return res.status(StatusCodes.BAD_REQUEST).json({
-         message: response.description,
-         data: {},
-         success: false,
-         error: response.error,
-       });
-     }
-
     return res.status(StatusCodes.OK).json({
       message: "successfully fetch all the tokens",
       data: response,
@@ -35,28 +25,17 @@ const tokensList = async (req, res) => {
   }
 };
 
-const getTokenPrice = async (req, res) => {
+const tokenPrice = async (req, res) => {
   try {
     const address = req.params.address;
-    console.log("address",address)
-    const response = await tokensService.getTokenPrice(address);
-    //console.log('response',response)
-     if (response.error) {
-       return res.status(StatusCodes.BAD_REQUEST).json({
-         message: response.description,
-         data: {},
-         success: false,
-         error: response.error,
-       });
-     }
-    return res.status(StatusCodes.OK).json({
-      message: "successfully  a token price ",
-      data: tokenPrice,
-      success: true,
-      err: {},
-    });
+    console.log("address", address);
+    const response = await tokensService.tokenPrice(address);
+    if (!response.success) {
+      return res.status(response.statusCode).json(response);
+    }
+    return res.status(response.status).json(response);
   } catch (error) {
-    //console.log(error);
+    
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: "unable to a token price",
       data: {},
@@ -64,6 +43,7 @@ const getTokenPrice = async (req, res) => {
       err: error,
     });
   }
+
 };
 
 
@@ -71,4 +51,5 @@ const getTokenPrice = async (req, res) => {
 
 module.exports = {
   tokensList,
-  getTokenPrice};
+  tokenPrice,
+};

@@ -18,16 +18,20 @@ class TokensService {
     }
   }
 
-  async getTokenPrice(data) {
+  async tokenPrice(address) {
     try {
-      const response = await this.tokensRepository.getATokenPrice(data);
-      console.log("-----------------");
-      console.log("res", response);
-      console.log("-----------------");
-      return response;
+      const response = await this.tokensRepository.tokenPrice(address);
+      if (response?.response?.data.error) {
+        const { statusCode, error, description } = response.response.data;
+        return { statusCode, error, description,success:false };
+      }
+      const {status,data}=response
+      return { status, data, success: true };
+      //return response
     } catch (error) {
       //console.error("Error occurred while fetching token price:", error);
       // console.log("error", error.response.data.description )
+
       return error
     }
   }

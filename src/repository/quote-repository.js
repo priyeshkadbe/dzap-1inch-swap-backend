@@ -16,16 +16,12 @@ class QuoteRepository {
           Authorization: `Bearer ${BEARER_TOKEN}`,
         },
       });
-      console.log("err", response);
-      const { toAmount, gas } = response.data;
-      console.log("To Amount:", toAmount);
-      console.log("Gas:", gas);
+      // const { toAmount, gas } = response.data;
       
       return response;
 
     } catch (error) {
-      //console.error("Error fetching swap quote:", error);
-      //return error
+
       console.log(
         "error.response.data.description ",
         error.response.data

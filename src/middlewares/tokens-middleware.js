@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 
-const validateGetTokenPrice = (req, res, next) => {
+const validateTokenPrice = (req, res, next) => {
   if (!req.params.address) {
     return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
@@ -13,4 +13,4 @@ const validateGetTokenPrice = (req, res, next) => {
 
 
 
-module.exports = { validateGetTokenPrice };
+module.exports = { validateTokenPrice };

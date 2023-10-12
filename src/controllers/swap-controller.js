@@ -1,25 +1,26 @@
+const { StatusCodes } = require("http-status-codes");
 const { SwapService } = require("../services/index");
 
 const swapService = new SwapService();
 
 const swap = async (req, res) => {
+
   try {
     const { tokenIn, tokenOut, tokenInAmount, callerAddress, slippage } =
       req.query;
-    //console.log('data',req.body)
-    const tokenPrice = await swapService.swap(
+    console.log("data", req.query);
+    const response = await swapService.swap(
       tokenIn,
       tokenOut,
       tokenInAmount,
       callerAddress,
       slippage
     );
-    return res.status(StatusCodes.OK).json({
-      message: "successfully  Swapped the tokens ",
-      data: tokenPrice,
-      success: true,
-      err: {},
-    });
+    if (!response.success) {
+
+      return res.status(response.statusCode).json(response);
+    }
+    return res.status(response.status).json(response);
   } catch (error) {
     return res.status(StatusCodes.BAD_REQUEST).json({
       message: "unable to fetch Swap tokens",
@@ -28,6 +29,8 @@ const swap = async (req, res) => {
       err: error,
     });
   }
+
+
 };
 
-module.exports = {swap};
+module.exports = { swap };

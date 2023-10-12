@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {
-  validateGetTokenPrice,
-} = require("../../middlewares/tokens-middleware");
+const { validateTokenPrice } = require("../../middlewares/tokens-middleware");
 
 const {
   validateAllowance,
@@ -17,11 +15,7 @@ const QuoteController = require("../../controllers/quote-controller");
 const SwapController = require("../../controllers/swap-controller");
 
 router.get("/tokens", TokensController.tokensList);
-router.get(
-  "/tokens/:address",
-  validateGetTokenPrice,
-  TokensController.getTokenPrice
-);
+router.get("/tokens/:address", validateTokenPrice, TokensController.tokenPrice);
 router.get("/quote", validateGetQuote, QuoteController.quote);
 router.get("/swap", validateSwap, SwapController.swap);
 router.get(

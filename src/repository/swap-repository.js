@@ -1,3 +1,4 @@
+const { default: axios } = require("axios");
 const { API_URL, BEARER_TOKEN } = require("../config/serverConfig");
 
 class SwapRepository {
@@ -19,14 +20,12 @@ class SwapRepository {
           Authorization: `Bearer ${BEARER_TOKEN}`,
         },
       });
-      console.log("res", response);
-      return response.data;
+       
+      return response;
+      
     } catch (error) {
-      console.error(
-        "Error fetching swap quote:",
-        error.response.data.description
-      );
-      return { error: error.response.data.description };
+       console.log("error.response.data.description ", error.response.data);
+       return { error: error.response.data };
     }
   }
 
