@@ -6,9 +6,6 @@ const {
 } = require("../config/serverConfig");
 
 class ApproveRepository {
-
-  
- 
   async allowance(tokenAddress, walletAddress) {
     try {
       console.log("allowance repository");
@@ -21,7 +18,7 @@ class ApproveRepository {
           Authorization: `Bearer ${BEARER_TOKEN}`,
         },
       });
-      
+
       return response.data;
     } catch (error) {
       console.log(error);
@@ -31,7 +28,6 @@ class ApproveRepository {
 
   async transaction(tokenAddress, amount) {
     try {
-      
       const response = await axios.get(API_URL + "approve/allowance", {
         params: {
           tokenAddress,
@@ -48,4 +44,4 @@ class ApproveRepository {
   }
 }
 
-module.exports =  ApproveRepository;
+module.exports = ApproveRepository;
