@@ -15,7 +15,7 @@ const tokensList = async (req, res) => {
       err: {},
     });
   } catch (error) {
-    //console.log(error);
+    console.log(error);
     return res.status(StatusCodes.NO_CONTENT).json({
       message: "unable to fetch tokens",
       data: {},
