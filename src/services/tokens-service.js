@@ -29,45 +29,9 @@ class TokensService {
     }
   }
 
-  async getSwapQuote(tokenIn, tokenOut, tokenInAmount) {
-    try {
-      console.log("Fetching swap quote...");
-      const response = await this.tokensRepository.getSwapQuote(
-        tokenIn,
-        tokenOut,
-        tokenInAmount
-      );
-      return response;
-    } catch (error) {
-      console.error("Error occurred while fetching swap quote:", error);
-      return {
-        error: "Unable to fetch swap quote. Please try again later.",
-      };
-    }
-  }
+  
 
-  async swap(
-    tokenIn,
-    tokenOut,
-    tokenInAmount,
-    callerAddress,
-    slippage
-  ) {
-    try {
-      console.log("Fetching swap quote...");
-      const response = await this.tokensRepository.swap(
-        tokenIn,
-        tokenOut,
-        tokenInAmount,
-        callerAddress,
-        slippage
-      );
-      return response;
-    } catch (error) {
-      console.log("Error occurred while  swap quote:", error);
-      return error;
-    }
-  }
+  
 }
 
 module.exports = TokensService;
