@@ -1,0 +1,263 @@
+openapi: 3.0.0
+info:
+  title: Token Swap API
+  description: API for swapping tokens and getting token information
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000/doc/
+paths:
+  /tokens:
+    get:
+      summary: Get a list of tokens
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Token'
+        '500':
+          description: Internal Server Error
+  /tokens/{address}:
+    get:
+      summary: Get token details by address
+      parameters:
+        - name: address
+          in: path
+          required: true
+          description: Token address
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '404':
+          description: Token not found
+        '500':
+          description: Internal Server Error
+  /quote:
+    get:
+      summary: Get a quote for swapping tokens
+      parameters:
+        - name: tokenIn
+          in: query
+          required: true
+          description: Address of the token to be swapped
+          schema:
+            type: string
+        - name: tokenOut
+          in: query
+          required: true
+          description: Address of the token to receive
+          schema:
+            type: string
+        - name: tokenInAmount
+          in: query
+          required: true
+          description: Amount of the token to be swapped
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+  /swap:
+    get:
+      summary: Swap tokens
+      parameters:
+        - name: tokenIn
+          in: query
+          required: true
+          description: Address of the token to be swapped
+          schema:
+            type: string
+        - name: tokenOut
+          in: query
+          required: true
+          description: Address of the token to receive
+          schema:
+            type: string
+        - name: tokenInAmount
+          in: query
+          required: true
+          description: Amount of the token to be swapped
+          schema:
+            type: number
+        - name: callerAddress
+          in: query
+          required: true
+          description: Address of the caller
+          schema:
+            type: string
+        - name: slippage
+          in: query
+          required: true
+          description: Slippage value
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SwapResponse'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    Token:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        symbol:
+          type: string
+      required:
+        - name
+        - symbol
+    Quote:
+      type: object
+      properties:
+        toAmount:
+          type: number
+        gas:
+          type: number
+      required:
+        - toAmount
+        - gas
+    SwapResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+        '500':
+          description: Internal Server Error
+  /v1/approve/allowance:
+    get:
+      summary: Get allowance for a specific token and wallet address
+      parameters:
+        - name: tokenAddress
+          in: query
+          required: true
+          description: Address of the token
+          schema:
+            type: string
+        - name: walletAddress
+          in: query
+          required: true
+          description: Wallet address
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllowanceResponse'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+  /v1/approve/transaction:
+    get:
+      summary: Initiate a transaction for a specific token and amount
+      parameters:
+        - name: tokenAddress
+          in: query
+          required: true
+          description: Address of the token
+          schema:
+            type: string
+        - name: amount
+          in: query
+          required: true
+          description: Amount of the token
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    Token:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        symbol:
+          type: string
+      required:
+        - name
+        - symbol
+    Quote:
+      type: object
+      properties:
+        toAmount:
+          type: number
+        gas:
+          type: number
+      required:
+        - toAmount
+        - gas
+    SwapResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: object
+    AllowanceResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        data:
+          type: object
+      required:
+        - status
+        - data
+    TransactionResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        data:
+          type: object
+      required:
+        - status
+        - data
