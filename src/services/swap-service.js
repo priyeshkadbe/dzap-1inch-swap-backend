@@ -5,14 +5,15 @@ class SwapService {
     this.swapRepository = new SwapRepository();
   }
 
-
-  async swap(tokenIn, tokenOut, tokenInAmount) {
+  async swap(tokenIn, tokenOut, tokenInAmount, callerAddress, slippage) {
     try {
       console.log("Fetching swap quote...");
       const response = await this.swapRepository.swap(
         tokenIn,
         tokenOut,
-        tokenInAmount
+        tokenInAmount,
+        callerAddress,
+        slippage
       );
 
       // if (response.error) {

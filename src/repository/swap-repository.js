@@ -5,6 +5,14 @@ class SwapRepository {
 
 
   async swap(tokenIn, tokenOut, tokenInAmount, callerAddress, slippage) {
+    console.log(
+      "adf",
+      tokenIn,
+      tokenOut,
+      tokenInAmount,
+      callerAddress,
+      slippage
+    );
     try {
       console.log("calling swap");
       const response = await axios.get(`${API_URL}swap`, {
