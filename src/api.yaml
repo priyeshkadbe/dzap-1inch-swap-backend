@@ -5,7 +5,7 @@ info:
   description: API for swapping tokens and getting token information
   version: 1.0.0
 servers:
-  - url: http://localhost:3000/docs
+  - url: http://localhost:5000/
 paths:
   /tokens:
     get:
