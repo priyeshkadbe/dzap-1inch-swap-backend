@@ -1,7 +1,7 @@
 
 openapi: 3.0.0
 info:
-  title: Token Swap API
+  title: 1 inch Swap API
   description: API for swapping tokens and getting token information
   version: 1.0.0
 servers:
