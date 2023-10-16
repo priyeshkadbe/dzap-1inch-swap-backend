@@ -1,25 +1,24 @@
-
-openapi: 3.0.0
+openapi: 1.0.0
 info:
   title: 1 inch Swap API
   description: API for swapping tokens and getting token information
   version: 1.0.0
 servers:
-  - url: http://localhost:5000/
+  - url: https://dzap-1inch-swap.onrender.com/
 paths:
   /tokens:
     get:
       summary: Get a list of tokens
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Token'
-        '500':
+                  $ref: "#/components/schemas/Token"
+        "500":
           description: Internal Server Error
   /tokens/{address}:
     get:
@@ -32,15 +31,15 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Token'
-        '404':
+                $ref: "#/components/schemas/Token"
+        "404":
           description: Token not found
-        '500':
+        "500":
           description: Internal Server Error
   /quote:
     get:
@@ -65,15 +64,15 @@ paths:
           schema:
             type: number
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Quote'
-        '400':
+                $ref: "#/components/schemas/Quote"
+        "400":
           description: Bad Request
-        '500':
+        "500":
           description: Internal Server Error
   /swap:
     get:
@@ -110,15 +109,15 @@ paths:
           schema:
             type: number
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SwapResponse'
-        '400':
+                $ref: "#/components/schemas/SwapResponse"
+        "400":
           description: Bad Request
-        '500':
+        "500":
           description: Internal Server Error
 components:
   schemas:
