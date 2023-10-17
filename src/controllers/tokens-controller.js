@@ -5,7 +5,6 @@ const { StatusCodes } = require("http-status-codes");
 const tokensService = new TokensService();
 
 const tokensList = async (req, res) => {
-  console.log("hitting");
   try {
     const response = await tokensService.tokensList();
     return res.status(StatusCodes.OK).json({

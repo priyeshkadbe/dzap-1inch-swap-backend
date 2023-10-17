@@ -8,7 +8,6 @@ const {
 class ApproveRepository {
   async allowance(tokenAddress, walletAddress) {
     try {
-      console.log("allowance repository");
       const response = await axios.get(API_URL + "approve/allowance", {
         params: {
           tokenAddress,
@@ -36,7 +35,6 @@ class ApproveRepository {
           Authorization: `Bearer ${BEARER_TOKEN}`,
         },
       });
-      console.log("response",response.data)
       return response;
     } catch (error) {
       return { error: "now found allowance" };

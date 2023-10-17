@@ -16,16 +16,12 @@ class QuoteRepository {
           Authorization: `Bearer ${BEARER_TOKEN}`,
         },
       });
-      // const { toAmount, gas } = response.data;
+
       
       return response;
 
     } catch (error) {
 
-      console.log(
-        "error.response.data.description ",
-        error.response.data
-      );
       return { error: error.response.data };
     }
   }

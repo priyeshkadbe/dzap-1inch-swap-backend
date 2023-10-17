@@ -1,5 +1,5 @@
 const { QuoteRepository } = require("../repository/index");
-
+const { ethers } = require("ethers");
 class QuoteService {
   constructor() {
     this.quoteRepository = new QuoteRepository();
@@ -7,18 +7,12 @@ class QuoteService {
 
   async quote(tokenIn, tokenOut, tokenInAmount) {
     try {
-      console.log("Fetching swap quote...");
+      tokenInAmount= ethers.utils.parseEther("1").toString();
       const response = await this.quoteRepository.quote(
         tokenIn,
         tokenOut,
         tokenInAmount
       );
-
-      // if (response.error) {
-      //   const { error, statusCode, description } = response;
-      //   console.log (error.error, error.statusCode, error.description );
-      // }
-      // return response;
       console.log('er',response.error)
       if (response.error) {
         const { error, statusCode, description } = response.error;

@@ -1,3 +1,4 @@
+const { ethers } = require("ethers");
 const { SwapRepository } = require("../repository/index");
 
 class SwapService {
@@ -8,6 +9,7 @@ class SwapService {
   async swap(tokenIn, tokenOut, tokenInAmount, callerAddress, slippage) {
     try {
       console.log("Fetching swap quote...");
+      tokenInAmount = ethers.utils.parseEther("1").toString();
       const response = await this.swapRepository.swap(
         tokenIn,
         tokenOut,
@@ -15,13 +17,6 @@ class SwapService {
         callerAddress,
         slippage
       );
-
-      // if (response.error) {
-      //   const { error, statusCode, description } = response;
-      //   console.log (error.error, error.statusCode, error.description );
-      // }
-      // return response;
-      console.log("er", response.error);
       if (response.error) {
         const { error, statusCode, description } = response.error;
         console.log("sending", error, statusCode, description);

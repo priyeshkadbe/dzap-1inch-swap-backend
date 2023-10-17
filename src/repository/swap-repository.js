@@ -32,7 +32,6 @@ class SwapRepository {
       return response;
       
     } catch (error) {
-       console.log("error.response.data.description ", error.response.data);
        return { error: error.response.data };
     }
   }

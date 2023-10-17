@@ -27,11 +27,8 @@ class TokensService {
       }
       const {status,data}=response
       return { status, data, success: true };
-      //return response
-    } catch (error) {
-      //console.error("Error occurred while fetching token price:", error);
-      // console.log("error", error.response.data.description )
 
+    } catch (error) {
       return error
     }
   }
