@@ -9,7 +9,7 @@ class SwapService {
   async swap(tokenIn, tokenOut, tokenInAmount, callerAddress, slippage) {
     try {
       console.log("Fetching swap quote...");
-      tokenInAmount = ethers.utils.parseEther("1").toString();
+      //tokenInAmount = ethers.utils.parseEther("1").toString();
       const response = await this.swapRepository.swap(
         tokenIn,
         tokenOut,

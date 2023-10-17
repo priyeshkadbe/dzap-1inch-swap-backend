@@ -7,7 +7,7 @@ class QuoteService {
 
   async quote(tokenIn, tokenOut, tokenInAmount) {
     try {
-      tokenInAmount= ethers.utils.parseEther("1").toString();
+      // tokenInAmount= ethers.utils.parseEther("1").toString();
       const response = await this.quoteRepository.quote(
         tokenIn,
         tokenOut,
