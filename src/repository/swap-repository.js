@@ -2,8 +2,6 @@ const { default: axios } = require("axios");
 const { API_URL, BEARER_TOKEN } = require("../config/serverConfig");
 
 class SwapRepository {
-
-
   async swap(tokenIn, tokenOut, tokenInAmount, callerAddress, slippage) {
     console.log(
       "adf",
@@ -23,20 +21,18 @@ class SwapRepository {
           from: callerAddress,
           slippage: slippage,
           includeGas: true,
+          compatibility: true,
         },
         headers: {
           Authorization: `Bearer ${BEARER_TOKEN}`,
         },
       });
-       
+
       return response;
-      
     } catch (error) {
-       return { error: error.response.data };
+      return { error: error.response.data };
     }
   }
-
-
-} 
+}
 
 module.exports = SwapRepository;
